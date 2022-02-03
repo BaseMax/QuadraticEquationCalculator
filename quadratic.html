@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Quadratic Equation Calculator - Online</title>
+    </head>
+    <body>
+
+        <h1>Quadratic Equation Calculator - Online</h1>
+
+        <form method="post" action="" onsubmit="test(this.digits.value);return false;">
+            A:
+            <input type="number" name="a" value="800" size="25" maxlength="25">
+
+            <br>
+            B:
+            <input type="number" name="b" value="800" size="25" maxlength="25">
+
+            <br>
+            C:
+            <input type="number" name="c" value="800" size="25" maxlength="25">
+
+            <br>
+            <button onclick="test(this.form.a.value, this.form.b.value, this.form.c.value);">Calculate Quadratic</button>
+
+            <h4>Output:</h4>
+            <div id="log"></div>
+            <mark>
+                <b id="roots"></b>
+            </mark>
+        </form>
+
+        <script src="quadratic.js" type="text/javascript"></script>
+
+        <script type="text/javascript">
+        const elm_log = document.querySelector("#log")
+        const elm_roots = document.querySelector("#roots")
+
+        window.addEventListener("load", () => {
+            document.querySelector("button").click()
+        })
+        </script>
+
+    </body>
+</html>
