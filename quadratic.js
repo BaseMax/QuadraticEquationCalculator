@@ -1,66 +1,91 @@
 // https://github.com/BaseMax/QuadraticEquationCalculator
 'use strict'
 
-const quadraticSolve = (b, c, d) => {
-    let s, t
-    let q = (
-        3.0 * c - (b * b)
-    ) / 9.0
-    const r = (
-        -(27.0 * d) + b * (
-            9.0 * c - 2.0 * (b * b)
-        )
-    ) / 54.0
+/**
+ * Calculates the discriminant of Ax^2 + Bx + C = 0.
+ */
+const disc = (A, B, C) => {
+    let a = A
+    let b = B
+    let c = C
 
-    const discrim = q * q * q + r * r
+    const isIntCoeffs = Math.abs(Math.floor(A) - A) === 0 && Math.abs(Math.floor(b) - b) === 0 && Math.abs(Math.floor(C) - C) === 0
 
-    const roots = [
-        {real: 0, i: 0}, 
-        {real: 0, i: 0}, 
-        {real: 0, i: 0}
-    ]
-
-    const term1 = b / 3.0
-
-    // one root real, two are complex
-    if (discrim > 0) {
-        s = r + Math.sqrt(discrim)
-        s = ((s < 0) ? -Math.pow(-s, (1.0 / 3.0)) : Math.pow(s, (1.0 / 3.0)))
-        t = r - Math.sqrt(discrim)
-        t = ((t < 0) ? -Math.pow(-t, (1.0 / 3.0)) : Math.pow(t, (1.0 / 3.0)))
-
-        roots[0].real = -term1 + s + t
-        roots[2].real = roots[1].real = - (term1 + ( (s + t) / 2.0 ))
-        roots[1].i = Math.sqrt(3.0) * (-t + s) / 2
-        roots[2].i = - roots[1].i
-
-        return roots
-    }
-    // The remaining options are all real
-    // All roots real, at least two are equal.
-    else if(discrim === 0) {
-        if(r < 0) {
-            const r13 = -Math.pow(-r, (1.0/3.0))
-        } else {
-            const r13 = Math.pow(r, (1.0/3.0))
+    if(isIntCoeffs) {
+        if(a * c > 0) {
+            a = Math.abs(A);
+            c = Math.abs(C);
         }
-
-        roots[0].real = -term1 + 2.0 * r13
-        roots[2].real = roots[1].real = -(r13 + term1)
-
-        return roots
+        let loopCondition = false;
+        do {
+            loopCondition = false;
+            if(a < c) {
+                const tmp = a;
+                a = c;
+                c = tmp;
+            }
+            const n = nearestInt(b / c);
+            if(n !== 0) {
+                const alpha = a - n * b;
+                if(alpha >= -a) {
+                    b = b - n * c;
+                    a = alpha - n * b;
+                    if(a > 0) {
+                        loopCondition = true;
+                    }
+                }
+            }
+        } while (loopCondition)
     }
-    // Only option left is that all roots are real and unequal (to get here, q < 0)
-    else {
-        q = -q
+    return b * b - a * c
+}
+  
+/**
+ * Calculates the nearest integer to a number.
+ */
+const nearestInt = (n) => {
+    const l = Math.floor(n);
+    const h = Math.ceil(n);
+    const dl = Math.abs(n - l);
+    const dh = Math.abs(n - h);
+    return (dl > dh ? dh : dl);
+  }
+  
+/**
+ * Solves the linear equation Ax^2 + Bx + C = 0 for x.
+ * Computes the roots of the quadratic Ax^2 + Bx + C = 0.
+ */
+const quadraticSolve = (A, B, C) => {
+    const b = -B / 2
+    const q = disc(A, b, C)
 
-        const dum1 = Math.acos(r / Math.sqrt(q * q * q))
-        const temp = -term1 + 2.0 * Math.sqrt(q)
+    let X1 = 0
+    let Y1 = 0
+    let X2 = 0
+    let Y2 = 0
 
-        roots[0].real = temp * Math.cos(dum1 / 3.0)
-        roots[1].real = temp * Math.cos((dum1 + 2.0 * Math.PI) / 3.0)
-        roots[2].real = temp * Math.cos((dum1 + 4.0 * Math.PI) / 3.0)
+    if(q < 0) {
+        const X = b / A
+        const Y = Math.sqrt(-q) / A
 
-        return roots
+        X1 = X
+        Y1 = Y
+        X2 = X
+        Y2 = -Y
+    } else {
+        Y1 = 0
+        Y2 = 0
+        const r = b + Math.sign(b) * Math.sqrt(q)
+        if(r === 0) {
+            X1 = C / A
+            X2 = -C / A
+        } else {
+            X1 = C / r
+            X2 = r / A
+        }
     }
+    return [
+        {real:X1, i:Y1},
+        {real:X2, i:Y2}
+    ]
 }
