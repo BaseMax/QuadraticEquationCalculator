@@ -6,24 +6,30 @@
     <body>
 
         <h1>Quadratic Equation Calculator - Online</h1>
-        <p>In algebra, a quadratic equation is any equation that can be rearranged in standard form as ax^{2}+bx+c=0 where x represents an unknown, and a, b, and c represent known numbers, where a ≠ 0. If a = 0, then the equation is linear, not quadratic, as there is no ax^2 term.</p>
-        <img src="https://www.gstatic.com/education/formulas2/397133473/en/quadratic_equation.svg">
-        <br>
+        <p>
+            A <b>X<sup>2</sup></b>
+            +
+            B <b>X<sup>1</sup></b>
+            +
+            C
+            =
+            0
+        </p>
 
         <form name="form" method="post" action="" onsubmit="test(form.a.value, form.b.value, form.c.value);return false;">
             A:
-            <input type="number" name="a" value="800" size="25" maxlength="25">
+            <input type="number" name="a" value="1" size="25" maxlength="25">
 
             <br>
             B:
-            <input type="number" name="b" value="800" size="25" maxlength="25">
+            <input type="number" name="b" value="2" size="25" maxlength="25">
 
             <br>
             C:
-            <input type="number" name="c" value="800" size="25" maxlength="25">
-
+            <input type="number" name="c" value="2" size="25" maxlength="25">
+          
             <br>
-            <button onclick="test(form.a.value, form.b.value, form.c.value);">Calculate Quadratic</button>
+            <button>Calculate Quadratic</button>
 
             <h4>Output:</h4>
             <div id="log"></div>
@@ -39,12 +45,17 @@
         const elm_roots = document.querySelector("#roots")
 
         const test = (a, b, c) => {
-            const res = quadratic_solver(a, b, c)
+            const res = quadraticSolve(a, b, c)
+            console.log(res)
 
-            elm_roots.innerHTML = `First root is: ${res[0]}<br>Second root is: ${res[1]}<br>`
-            // console.log("First root is: " + res[0])
-            // console.log("Second root is: " + res[1])
-        };
+            const display = (value) => {
+                if(value.i === 0)
+                    return `${value.real}`
+                else
+                    return `${value.real} + ${value.i} <i>i</i>`
+            }
+            elm_roots.innerHTML = `X<sub>1</sub> = ${display(res[0])}<br>X<sub>2</sub> = ${display(res[1])}<br>`
+        }
 
         window.addEventListener("load", () => {
             document.querySelector("button").click()
