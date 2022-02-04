@@ -1,3 +1,3 @@
 # Quadratic Equation Calculator (Quadratic Solver)
 
-TODO
+**Demo:** https://basemax.github.io/QuadraticEquationCalculator/quadratic.html
