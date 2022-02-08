@@ -2,6 +2,13 @@
 
 I searched about topic and used exists source and code to implement this web page to calculate roots of Quadratic Equation with supporting **Complex Number**.
 
+## Features
+
+- Fast
+- Pure JS
+- Supporting **Complex number** to finding roots
+- Tiny and without needing any third-party tools
+
 <p>
     A <b>X<sup>2</sup></b>
     +
