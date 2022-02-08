@@ -44,10 +44,10 @@ const disc = (A, B, C) => {
  * Calculates the nearest integer to a number.
  */
 const nearestInt = (n) => {
-    const v1 = Math.abs(n - Math.floor(n))
-    const v2 = Math.abs(n - Math.ceil(n))
-
-    return v1 > v2 ? v2 : v1
+    return Math.max(
+        Math.abs(n - Math.floor(n)),
+        Math.abs(n - Math.ceil(n))
+    )
 }
   
 /**
