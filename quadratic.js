@@ -66,17 +66,16 @@ const quadraticSolve = (A, B, C) => {
     let Y2 = 0
 
     if(q < 0) {
-        const X = b / A
-        const Y = Math.sqrt(-q) / A
-
-        X1 = X
-        Y1 = Y
-        X2 = X
-        Y2 = -Y
+        X1 = b / A
+        X2 = X1
+        Y1 = Math.sqrt(-q) / A
+        Y2 = -Y1
     } else {
+        const r = b + Math.sign(b) * Math.sqrt(q)
+
         Y1 = 0
         Y2 = 0
-        const r = b + Math.sign(b) * Math.sqrt(q)
+        
         if(r === 0) {
             X1 = C / A
             X2 = -C / A
@@ -85,6 +84,7 @@ const quadraticSolve = (A, B, C) => {
             X2 = r / A
         }
     }
+
     return [
         {real:X1, i:Y1},
         {real:X2, i:Y2}
