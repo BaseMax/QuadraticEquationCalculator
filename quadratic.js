@@ -13,25 +13,25 @@ const disc = (A, B, C) => {
 
     if(isIntCoeffs) {
         if(a * c > 0) {
-            a = Math.abs(A);
-            c = Math.abs(C);
+            a = Math.abs(A)
+            c = Math.abs(C)
         }
-        let loopCondition = false;
+        let loopCondition = false
         do {
-            loopCondition = false;
+            loopCondition = false
             if(a < c) {
-                const tmp = a;
-                a = c;
-                c = tmp;
+                const tmp = a
+                a = c
+                c = tmp
             }
-            const n = nearestInt(b / c);
+            const n = nearestInt(b / c)
             if(n !== 0) {
-                const alpha = a - n * b;
+                const alpha = a - n * b
                 if(alpha >= -a) {
-                    b = b - n * c;
-                    a = alpha - n * b;
+                    b = b - n * c
+                    a = alpha - n * b
                     if(a > 0) {
-                        loopCondition = true;
+                        loopCondition = true
                     }
                 }
             }
@@ -44,11 +44,12 @@ const disc = (A, B, C) => {
  * Calculates the nearest integer to a number.
  */
 const nearestInt = (n) => {
-    const l = Math.floor(n);
-    const h = Math.ceil(n);
-    const dl = Math.abs(n - l);
-    const dh = Math.abs(n - h);
-    return (dl > dh ? dh : dl);
+    const l = Math.floor(n)
+    const h = Math.ceil(n)
+    const dl = Math.abs(n - l)
+    const dh = Math.abs(n - h)
+
+    return (dl > dh ? dh : dl)
   }
   
 /**
