@@ -10,4 +10,6 @@
     0
 </p>
 
+[![](demo.jpg)](https://basemax.github.io/QuadraticEquationCalculator/quadratic.html)
+
 **Demo:** https://basemax.github.io/QuadraticEquationCalculator/quadratic.html
