@@ -44,13 +44,11 @@ const disc = (A, B, C) => {
  * Calculates the nearest integer to a number.
  */
 const nearestInt = (n) => {
-    const l = Math.floor(n)
-    const h = Math.ceil(n)
-    const dl = Math.abs(n - l)
-    const dh = Math.abs(n - h)
+    const v1 = Math.abs(n - Math.floor(n))
+    const v2 = Math.abs(n - Math.ceil(n))
 
-    return (dl > dh ? dh : dl)
-  }
+    return v1 > v2 ? v2 : v1
+}
   
 /**
  * Solves the linear equation Ax^2 + Bx + C = 0 for x.
